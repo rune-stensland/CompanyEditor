@@ -13,4 +13,4 @@ ASP .net Server side rendering razor pages, CRUD generated forms, Blazor default
 Set the correct login credentials in the file appsetting.json "DefaultConnection"
 Enter the package manager console and run the command update-database to create the database.
 
-## Documentation
+![image](https://github.com/user-attachments/assets/e07dcf84-14f4-4276-ae88-6ca6b241e5f5)
