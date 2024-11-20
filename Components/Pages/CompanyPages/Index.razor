@@ -1,0 +1,42 @@
+﻿@page "/companies"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using CompanyEditor.Models
+@using CompanyEditor.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<CompanyEditor.Data.ApplicationDbContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="companies/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Company">
+    <PropertyColumn Property="company => company.OrgNumber" />
+    <PropertyColumn Property="company => company.Name" />
+    <PropertyColumn Property="company => company.Adress" />
+    <PropertyColumn Property="company => company.AreaCode" />
+    <PropertyColumn Property="company => company.City" />
+    <PropertyColumn Property="company => company.EmailAdress" />
+    <PropertyColumn Property="company => company.PhoneNumber" />
+
+    <TemplateColumn Context="company">
+        <a href="@($"companies/edit?id={company.Id}")">Edit</a> |
+        <a href="@($"companies/details?id={company.Id}")">Details</a> |
+        <a href="@($"companies/delete?id={company.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private ApplicationDbContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
